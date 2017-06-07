@@ -45,9 +45,9 @@ if [[ -z "$KONG_PG_PASSWORD" ]]; then
   exit 1
 fi
 
-# Register kong-admin and kong-dashboard api endpoints
-# and assicotiate consumer and credentials for admin access
-# exec "/setup-admin.sh"
+rm -f /tmp/logpipe
+mkfifo -m 666 /tmp/logpipe
+cat <> /tmp/logpipe 1>&2 &
 
 # Disabling nginx daemon mode
 export KONG_NGINX_DAEMON="off"
