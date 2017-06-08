@@ -10,6 +10,9 @@ RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/
     chmod +x /usr/local/bin/dumb-init
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY healthcheck.sh /healthcheck.sh
+RUN chmod +x /healthcheck.sh
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 RUN mkdir -p /usr/local/kong/logs \
