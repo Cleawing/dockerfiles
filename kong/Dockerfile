@@ -1,4 +1,4 @@
-FROM kong:0.10.30
+FROM kong:0.10.3
 
 RUN yum install -y wget curl jq nc && yum clean all
 
@@ -9,7 +9,8 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY healthcheck.sh /healthcheck.sh
 RUN chmod +x /healthcheck.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+HEALTHCHECK --interval=5s --timeout=5s --retries=3 \
+  CMD /healthcheck.sh || exit 1
 
 RUN mkdir -p /usr/local/kong/logs \
     && ln -sf /tmp/logpipe /usr/local/kong/logs/access.log \
@@ -17,5 +18,4 @@ RUN mkdir -p /usr/local/kong/logs \
     && ln -sf /tmp/logpipe /usr/local/kong/logs/serf.log \
     && ln -sf /tmp/logpipe /usr/local/kong/logs/error.log
 
-EXPOSE 8000 8443 8001 7946
-CMD ["kong", "start"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
