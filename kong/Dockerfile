@@ -1,10 +1,6 @@
-FROM centos:7
-MAINTAINER Marco Palladino, marco@mashape.com
+FROM kong:0.10.30
 
-ENV KONG_VERSION 0.10.3
-
-RUN yum install -y wget curl jq nc https://github.com/Mashape/kong/releases/download/$KONG_VERSION/kong-$KONG_VERSION.el7.noarch.rpm && \
-    yum clean all
+RUN yum install -y wget curl jq nc && yum clean all
 
 RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
     chmod +x /usr/local/bin/dumb-init
