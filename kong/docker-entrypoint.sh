@@ -52,8 +52,8 @@ cat <> /tmp/logpipe 1>&2 &
 # Disabling nginx daemon mode
 export KONG_NGINX_DAEMON="off"
 
-echo "Waiting for Postgres on $KONG_PG_HOST:$KONG_PG_PORT..." \
-  && while ! nc $KONG_PG_HOST $KONG_PG_PORT; do sleep 0.3; done \
-  && echo "Postgres is ready! Launching Kong..." \
+# echo "Waiting for Postgres on $KONG_PG_HOST:$KONG_PG_PORT..." \
+#   && while ! nc $KONG_PG_HOST $KONG_PG_PORT; do sleep 0.3; done \
+#   && echo "Postgres is ready! Launching Kong..." \
 
 exec "$@"
