@@ -1,3 +1,3 @@
-FROM alpine:3.0.6
+FROM alpine:3.6
 
 RUN apk --no-cache add socat
